@@ -84,10 +84,6 @@ box-sizing: border-box;
   }
   
 } 
-
-/* .calc-icon{
-  font-size: 32px;
-} */
 .icon{
   width: 5rem;
   height: 5rem;
@@ -97,12 +93,7 @@ box-sizing: border-box;
   .input-container{
     flex-direction: row;
   }
-  /* .custom-input-container {
-    width: 33.33%; 
-  } */
-  .header-text{
-    display: block;
-  }
+  
   .header-text{
     display: block;
   }
@@ -118,5 +109,8 @@ box-sizing: border-box;
   /* Large screen styles */
   .input-container{
     flex-direction: row;
+  }
+  .header-text{
+    display: block;
   }
 }
