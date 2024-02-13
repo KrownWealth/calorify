@@ -1,25 +1,46 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useCalculate = () => {
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
   const [caloriesPerHour, setCaloriesPerHour] = useState(0);
   const [durationMinutes, setDurationMinutes] = useState(0);
   const [mets, setMETs] = useState(0);
-  const [caloriesBurned, setCaloriesBurned] = useState(0);
+  const [caloriesBurned, setCaloriesBurned] = useState(null);
 
-  
-  // In useCalculate hook
-// const apiKey = import.meta.env.API_NINJAS_KEY;
-const apiKey = 'aQbPeSrBCai6qcFSQ2VZ30PlZJMryiHFGVIRFm9z'
+  const apiKey = 'aQbPeSrBCai6qcFSQ2VZ30PlZJMryiHFGVIRFm9z';
 
   const handleCalculate = async (selectedActivity, userInputs) => {
     try {
       const { weight, duration } = userInputs;
-      console.log(selectedActivity, weight, duration);
+      setErrors({}); 
+
+      // Validate weight
+      if (!selectedActivity){
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          activity: 'Please select an Activity'
+        }));
+        return;
+      }
+      if (weight < 50 || weight > 600) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          weight: 'Weight should be between 50 and 600.'
+        }));
+        return;
+      }
+
+      // Validate duration
+      if (duration < 5 || duration > 60) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          duration: 'Duration should be between 5 and 60.'
+        }));
+        return;
+      }
+
       const response = await fetch(
-        `https://api.api-ninjas.com/v1/caloriesburned?activity=${encodeURIComponent(
-          selectedActivity
-        )}`,
+        `https://api.api-ninjas.com/v1/caloriesburned?activity=${encodeURIComponent(selectedActivity)}`,
         {
           headers: {
             "X-Api-Key": apiKey,
@@ -31,34 +52,30 @@ const apiKey = 'aQbPeSrBCai6qcFSQ2VZ30PlZJMryiHFGVIRFm9z'
       if (!response.ok) {
         throw new Error("Failed to fetch activity data");
       }
+
       const activityData = await response.json();
 
       if (activityData.length > 0) {
         const { calories_per_hour, duration_minutes } = activityData[0];
         setCaloriesPerHour(calories_per_hour);
-        console.log(calories_per_hour);
         setDurationMinutes(duration_minutes);
-        console.log(duration_minutes);
-        setError(null);
 
-        // const weightPoundsToKg = weight / 2.205;
-        const METsPerMinutes =
-          caloriesPerHour / durationMinutes;
-        setMETs( METsPerMinutes);
-        const calculatedCaloriesBurned = ( duration *  METsPerMinutes * weight ) / 200
+        const METsPerMinutes = calories_per_hour / duration_minutes;
+        setMETs(METsPerMinutes);
+
+        const calculatedCaloriesBurned = (duration * METsPerMinutes * weight) / 200;
         setCaloriesBurned(calculatedCaloriesBurned);
-        console.log(calculatedCaloriesBurned);
       } else {
-        setError("No data found for the selected activity");
+        setErrors({ activity: 'No data found for the selected activity' });
       }
     } catch (error) {
-      setError("Error fetching activity data");
+      setErrors({ activity: 'Error fetching activity data' });
       console.error("Error fetching activity data:", error);
     }
   };
 
   return {
-    error,
+    errors,
     mets,
     caloriesBurned,
     handleCalculate,

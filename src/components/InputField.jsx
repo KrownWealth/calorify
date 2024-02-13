@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-
-const InputField = ({ 
+const InputField = ({
   activities,
   selectedActivity,
   onSelect,
   userInputs,
   handleInputChange,
+  errors,
 }) => {
   const handleActivityChange = (e) => {
     e.preventDefault();
     const selectedValue = e.target.value;
-    onSelect(selectedValue); 
+    onSelect(selectedValue);
   };
 
   return (
@@ -33,23 +33,30 @@ const InputField = ({
             ))}
           </select>
         </div>
+        <div className="error-container">
+          {errors && errors.activity && (
+            <div className="error-message">{errors.activity}</div>
+          )}
+        </div>
       </div>
       <div className="input-grid">
         <label htmlFor="Weight">Weight</label>
         <div className="custom-input-container">
           <input
-          type="number" 
-          name="weight" 
-          value={userInputs.weight || ""} 
+            type="number"
+            name="weight"
+            value={userInputs?.weight || ""}
             className="custom-input"
             onChange={handleInputChange}
           />
           <div className="placeholder-text">kilograms</div>
         </div>
-        
-        {/* <div className="error-container">
-          {inputErrors && <div className="error-message">{inputErrors}</div>}
-        </div> */}
+
+        <div className="error-container">
+          {errors && errors.weight && (
+            <div className="error-message">{errors.weight}</div>
+          )}
+        </div>
       </div>
       <div className="input-grid">
         <label htmlFor="ActivityDuration">Activity Duration</label>
@@ -58,14 +65,16 @@ const InputField = ({
             type="number"
             name="duration"
             className="custom-input"
-            value={userInputs.duration || ""}
+            value={userInputs?.duration || ""}
             onChange={handleInputChange}
           />
           <div className="placeholder-text">minutes</div>
         </div>
-        {/* <div className="error-container">
-          {inputErrors && <div className="error-message">{inputErrors}</div>}
-        </div> */}
+        <div className="error-container">
+          {errors && errors.duration && (
+            <div className="error-message">{errors.duration}</div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -76,7 +85,8 @@ InputField.propTypes = {
   selectedActivity: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired,
-  userInputs: PropTypes.object.isRequired, 
+  userInputs: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 export default InputField;
