@@ -1,11 +1,14 @@
 .header{
-  height: 15vh;
+  height: 8vh;
   display: flex;
   flex-direction: row;
  justify-content: space-between;
  background: #f0f0f0;
- padding: 2rem;
+ padding: 1rem;
   
+}
+.header h2{
+  font-size: 16px;
 }
 .header-text{
   display: none;
@@ -17,7 +20,12 @@
   padding: 2rem;
   text-align: center;
   background: #fff;
- 
+}
+.main-content{
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 /*Inpufield component */
 
@@ -27,9 +35,9 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  gap: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .input-grid{
   display: grid;
@@ -82,11 +90,17 @@ box-sizing: border-box;
   .header-text{
     display: block;
   }
+  .header{
+    height: 15vh;
+  }
+  .header h2{
+    font-size: 20px;
+  }
   
 } 
 .icon{
-  width: 5rem;
-  height: 5rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
@@ -97,13 +111,26 @@ box-sizing: border-box;
   .header-text{
     display: block;
   }
+  .header{
+    height: 15vh;
+  }
+  .header h2{
+    font-size: 20px;
+  }
 }
 
 @media only screen and (min-width: 1025px) and (max-width: 1200px) {
   .header-text{
     display: block;
   }
+  .header{
+    height: 15vh;
+  }
+  .header h2{
+    font-size: 20px;
+  }
 }
+
 
 @media only screen and (min-width: 1201px) {
   /* Large screen styles */
@@ -112,5 +139,11 @@ box-sizing: border-box;
   }
   .header-text{
     display: block;
+  }
+  .header{
+    height: 15vh;
+  }
+  .header h2{
+    font-size: 20px;
   }
 }
