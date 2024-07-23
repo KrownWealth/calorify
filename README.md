@@ -1,6 +1,7 @@
 # Calorify
 ## The Calorify is a Calories Burned Calculator that helps you estimate how many <br /> calories you burn when completing a specific activity for a set period of time.
-![Calorify-Burned-Fat-Calculator](https://github.com/KrownWealth/calorify/assets/100444940/9e657ac1-a524-478c-b54b-df535372da5d)
+![calorify-mobile](https://github.com/user-attachments/assets/948c1f78-d731-4444-96e1-603df41ffcef)
+
 
 ### Tech Stack: React
 ### Third Party API Integration: APP-Ninjas
